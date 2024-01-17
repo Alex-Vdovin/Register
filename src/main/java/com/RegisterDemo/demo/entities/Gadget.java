@@ -3,8 +3,6 @@ package com.RegisterDemo.demo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -38,15 +36,15 @@ public abstract class Gadget {
     @NonNull
 //    @ApiModelProperty(value = "Цена")
     private Integer price;
-    @Column(name="online_order_availability")
+    @Column(name="online_order_available")
 //    @ApiModelProperty(value = "Возможность купить онлайн")
-    private boolean onlineOrderAvailability;
-    @Column(name="installment_availability")
+    private boolean onlineOrderAvailable = true;
+    @Column(name="installment_available")
 //    @ApiModelProperty(value = "Возможность рассрочки")
-    private boolean installmentAvailability;
-    @Column(name="gadget_availability")
+    private boolean installmentAvailable = true;
+    @Column(name="gadget_available")
 //    @ApiModelProperty(value = "Наличие товара")
-    private boolean gadgetAvailability;
+    private boolean gadgetAvailable = true;
 
 
 }

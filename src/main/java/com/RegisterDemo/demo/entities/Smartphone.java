@@ -20,7 +20,15 @@ public class Smartphone extends Gadget{
     @Column(name="cameras_amount")
     private Integer camerasAmount;
     @ElementCollection
-    @CollectionTable(name="")
+    @CollectionTable(name="smartphone_models", joinColumns = @JoinColumn(name="smartphone_id"))
+    @Column(name="model")
     private Set<String> modelsAvailableSet;
 
+    public Smartphone(@NonNull String name, @NonNull String country, @NonNull String manufacturer,
+                      @NonNull Long serialNumber, @NonNull String colour, @NonNull Integer size,
+                      @NonNull Integer price, @NonNull Integer memoryCapacity, @NonNull Integer camerasAmount) {
+        super(name, country, manufacturer, serialNumber, colour, size, price);
+        this.memoryCapacity = memoryCapacity;
+        this.camerasAmount = camerasAmount;
+    }
 }

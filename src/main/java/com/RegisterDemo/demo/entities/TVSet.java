@@ -22,7 +22,14 @@ public class TVSet extends Gadget{
     @Column
     private String technology;
     @ElementCollection
-    @CollectionTable(name="")
+    @CollectionTable(name="tvset_models", joinColumns = @JoinColumn(name="tvset_id"))
+    @Column(name="model")
     private Set<String> modelsAvailableSet;
 
+    public TVSet(@NonNull String name, @NonNull String country, @NonNull String manufacturer, @NonNull Long serialNumber, @NonNull String colour,
+                 @NonNull Integer size, @NonNull Integer price, @NonNull String category, @NonNull String technology) {
+        super(name, country, manufacturer, serialNumber, colour, size, price);
+        this.category = category;
+        this.technology = technology;
+    }
 }

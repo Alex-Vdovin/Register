@@ -19,6 +19,14 @@ public class VacuumCleaner extends Gadget{
     @NonNull
     @Column(name = "modes_amount")
     private Integer modesAmount;
+    @ElementCollection
+    @CollectionTable(name="vacuum_cleaner_models", joinColumns = @JoinColumn(name="vacuum_cleaner_id"))
+    @Column(name="model")
+    private Set<String> modelsAvailableSet;
 
-
+    public VacuumCleaner(@NonNull String name, @NonNull String country, @NonNull String manufacturer, @NonNull Long serialNumber, @NonNull String colour, @NonNull Integer size, @NonNull Integer price, @NonNull Integer dustBoxCapacity, @NonNull Integer modesAmount) {
+        super(name, country, manufacturer, serialNumber, colour, size, price);
+        this.dustBoxCapacity = dustBoxCapacity;
+        this.modesAmount = modesAmount;
+    }
 }

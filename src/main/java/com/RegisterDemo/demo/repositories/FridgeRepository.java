@@ -18,8 +18,8 @@ public interface FridgeRepository extends JpaRepository<Fridge, Long> {
     List<Fridge> findAllByPrice(Integer price);
     List<Fridge> findAllByDoorsAmount(Integer doorAmount);
     List<Fridge> findAllByCompressorTypeIgnoreCase(String compressorType);
-    List<Fridge> findAllByOnlineOrderAvailability(boolean onlineOrderAvailability);
-    List<Fridge> findAllByInstallmentAvailability(boolean installmentAvailability);
-    List<Fridge> findAllByGadgetAvailability(boolean gadgetAvailability);
+    List<Fridge> findAllByOnlineOrderAvailable(boolean onlineOrderAvailability);
+    List<Fridge> findAllByInstallmentAvailable(boolean installmentAvailability);
+    List<Fridge> findAllByGadgetAvailable(boolean gadgetAvailability);
 
 }
