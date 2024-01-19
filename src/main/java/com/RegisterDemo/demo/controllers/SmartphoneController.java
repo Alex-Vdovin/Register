@@ -3,11 +3,13 @@ package com.RegisterDemo.demo.controllers;
 import com.RegisterDemo.demo.comparators.GadgetComparators.GadgetNameComparator;
 import com.RegisterDemo.demo.comparators.GadgetComparators.GadgetPriceComparator;
 import com.RegisterDemo.demo.entities.Smartphone;
-import com.RegisterDemo.demo.repositories.SmartphoneRepository;
 import com.RegisterDemo.demo.services.SmartphoneService;
 import com.RegisterDemo.demo.util.JsonUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,104 +21,120 @@ import java.util.List;
 @RestController
 @RequestMapping("/smartphones")
 @RequiredArgsConstructor
-@Tag(name="Контроллер смартфонов", description = "Позволяет работать с таблицей смартфонов")
+@Tag(name = "Контроллер смартфонов", description = "Позволяет работать с таблицей смартфонов")
 public class SmartphoneController {
+    @Autowired
     private SmartphoneService smartphoneService;
-    private SmartphoneRepository smartphoneRepository;
 
     @RequestMapping("/getById")
     @ResponseBody
-    String getById(@RequestParam(value = "id") Long id) {
-        return JsonUtil.writeEntityToJson(smartphoneRepository.findById(id).get());
+    @Operation(summary = "Поиск поID Смартфона")
+    String getById(@Parameter(description = "ID Смартфоны") @RequestParam(value = "id") Long id) {
+        return JsonUtil.writeEntityToJson(smartphoneService.getSmartphoneRepository().findById(id).get());
     }
 
     @RequestMapping("/getByName")
     @ResponseBody
-    String getByName(@RequestParam(value = "name") String name) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByNameIgnoreCase(name));
+    @Operation(summary = "Поиск по названию смартфона")
+    String getByName(@Parameter(description = "Название") @RequestParam(value = "name") String name) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByNameIgnoreCase(name));
     }
 
     @RequestMapping("/getByCountry")
     @ResponseBody
-    String getByCountry(@RequestParam(value = "country") String country) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByCountryIgnoreCase(country));
+    @Operation(summary = "Поиск по стране смартфона")
+    String getByCountry(@Parameter(description = "Страна") @RequestParam(value = "country") String country) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByCountryIgnoreCase(country));
     }
 
     @RequestMapping("/getByManufacturer")
     @ResponseBody
-    String getByManufacturer(@RequestParam(value = "manufacturer") String manufacturer) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByManufacturerIgnoreCase(manufacturer));
+    @Operation(summary = "Поиск по производителю смартфона")
+    String getByManufacturer(@Parameter(description = "Производитель") @RequestParam(value = "manufacturer") String manufacturer) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByManufacturerIgnoreCase(manufacturer));
     }
 
     @RequestMapping("/getBySerialNumber")
     @ResponseBody
-    String getBySerialNumber(@RequestParam(value = "serialNumber") Long serialNumber) {
-        return JsonUtil.writeEntityToJson(smartphoneRepository.findBySerialNumber(serialNumber).get());
+    @Operation(summary = "Поиск по серийному номеру смартфона")
+    String getBySerialNumber(@Parameter(description = "Серийный номер") @RequestParam(value = "serialNumber") Long serialNumber) {
+        return JsonUtil.writeEntityToJson(smartphoneService.getSmartphoneRepository().findBySerialNumber(serialNumber).get());
     }
 
     @RequestMapping("/getByColour")
     @ResponseBody
-    String getsByColour(@RequestParam(value = "colour") String colour) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByColourIgnoreCase(colour));
+    @Operation(summary = "Поиск по цвету смартфона")
+    String getsByColour(@Parameter(description = "Цвет") @RequestParam(value = "colour") String colour) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByColourIgnoreCase(colour));
     }
 
     @RequestMapping("/getBySize")
     @ResponseBody
-    String getBySize(@RequestParam(value = "size") Integer size) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllBySize(size));
+    @Operation(summary = "Поиск по размеру смартфона")
+    String getBySize(@Parameter(description = "Размер") @RequestParam(value = "size") Integer size) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllBySize(size));
     }
 
     @RequestMapping("/getByPrice")
     @ResponseBody
-    String getByPrice(@RequestParam(value = "price") Integer price) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByPrice(price));
+    @Operation(summary = "Поиск по цене смартфона")
+    String getByPrice(@Parameter(description = "Цена") @RequestParam(value = "price") Integer price) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByPrice(price));
     }
 
     @RequestMapping("/getByCategory")
     @ResponseBody
-    String getByCamerasAmount(@RequestParam(value = "camerasAmount") Integer camerasAmount) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByCamerasAmount(camerasAmount));
+    @Operation(summary = "Поиск по количеству камер у смартфона")
+    String getByCamerasAmount(@Parameter(description = "Количество камер") @RequestParam(value = "camerasAmount") Integer camerasAmount) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByCamerasAmount(camerasAmount));
     }
 
     @RequestMapping("/getByProcessType")
     @ResponseBody
-    String getByMemoryCapacity(@RequestParam(value = "memoryCapacity") Integer memoryCapacity) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByMemoryCapacity(memoryCapacity));
+    @Operation(summary = "Поиск по объему памяти смартфона")
+    String getByMemoryCapacity(@Parameter(description = "Объем памяти") @RequestParam(value = "memoryCapacity") Integer memoryCapacity) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByMemoryCapacity(memoryCapacity));
     }
 
     @RequestMapping("/getByOnlineOrderAvailability")
     @ResponseBody
-    String getByOnlineOrderAvailability(@RequestParam(value = "onlineOrderAvailability") boolean onlineOrderAvailability) {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAllByOnlineOrderAvailable(onlineOrderAvailability));
+    @Operation(summary = "Возможность заказать смартфон онлайн")
+    String getByOnlineOrderAvailability(@Parameter(description = "Возможность заказа онлайн true / false") @RequestParam(value = "onlineOrderAvailability") boolean onlineOrderAvailability) {
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAllByOnlineOrderAvailable(onlineOrderAvailability));
     }
 
     @RequestMapping("/getByInstallmentAvailability")
     @ResponseBody
-    String getByInstallmentAvailability(@RequestParam(value = "installmentAvailability") boolean installmentAvailability) {
-        return JsonUtil.writeListToJson(Collections.singletonList(smartphoneRepository.findAllByInstallmentAvailable(installmentAvailability)));
+    @Operation(summary = "Возможность взять смартфон в рассрочку")
+    String getByInstallmentAvailability(@Parameter(description = "Возможность рассрочки true / false") @RequestParam(value = "installmentAvailability") boolean installmentAvailability) {
+        return JsonUtil.writeListToJson(Collections.singletonList(smartphoneService.getSmartphoneRepository().findAllByInstallmentAvailable(installmentAvailability)));
     }
 
     @RequestMapping("/getByGadgetAvailability")
     @ResponseBody
-    String getByGadgetAvailability(@RequestParam(value = "gadgetAvailability") boolean gadgetAvailability) {
-        return JsonUtil.writeListToJson(Collections.singletonList(smartphoneRepository.findAllByGadgetAvailable(gadgetAvailability)));
+    @Operation(summary = "Доступность смартфона к покупке")
+    String getByGadgetAvailability(@Parameter(description = "Доступность к покупке true / false") @RequestParam(value = "gadgetAvailability") boolean gadgetAvailability) {
+        return JsonUtil.writeListToJson(Collections.singletonList(smartphoneService.getSmartphoneRepository().findAllByGadgetAvailable(gadgetAvailability)));
     }
 
     @RequestMapping("/addModel")
-    void addModels(@RequestParam(value = "id") Long id, @RequestParam(value = "model") String model) {
+    @Operation(summary = "Добавление моделей к смартфону", description = "Позволяет добавлять модели к конкретному смартфону, использует ID смартфона и название модели")
+    void addModels(@Parameter(description = "ID смартфона") @RequestParam(value = "id") Long id, @Parameter(description = "Название модели") @RequestParam(value = "model") String model) {
         smartphoneService.addModels(id, model);
     }
 
     @RequestMapping("/addNew")
-    void addNew(String name, String country, String manufacturer, Long serialNumber, String colour, Integer size,
-                Integer price, Integer memoryCapacity, Integer camerasAmount) {
-        smartphoneRepository.save(new Smartphone(name, country, manufacturer, serialNumber, colour, size, price, memoryCapacity, camerasAmount));
+    @Operation(summary = "Добавление нового смартфона")
+    void addNew(@Parameter(description = "Название") @RequestParam(value = "name") String name, @Parameter(description = "Страна") @RequestParam(value = "country") String country, @Parameter(description = "Производитель") @RequestParam(value = "manufacturer") String manufacturer, @Parameter(description = "Серийный номер") @RequestParam(value = "serialNumber") Long serialNumber, @Parameter(description = "Цвет") @RequestParam(value = "colour") String colour, @Parameter(description = "Размер") @RequestParam(value = "size") Integer size,
+                @Parameter(description = "Цена") @RequestParam(value = "price") Integer price, @Parameter(description = "Объём памяти") @RequestParam(value = "memoryCapacity") Integer memoryCapacity, @Parameter(description = "Количество камер") @RequestParam(value = "camerasAmount") Integer camerasAmount) {
+        smartphoneService.getSmartphoneRepository().save(new Smartphone(name, country, manufacturer, serialNumber, colour, size, price, memoryCapacity, camerasAmount));
     }
 
     @RequestMapping("/alphabetSorting")
     @ResponseBody
+    @Operation(summary = "Сортировка по алфавиту")
     String sortsByAlphabet() {
-        List<Smartphone> result = smartphoneRepository.findAll();
+        List<Smartphone> result = smartphoneService.getSmartphoneRepository().findAll();
         result.sort(new GadgetNameComparator());
         ;
         return JsonUtil.writeListToJson(result);
@@ -124,8 +142,9 @@ public class SmartphoneController {
 
     @RequestMapping("/priceSorting")
     @ResponseBody
+    @Operation(summary = "Сортировка по цене")
     String sortsByPrice() {
-        List<Smartphone> result = smartphoneRepository.findAll();
+        List<Smartphone> result = smartphoneService.getSmartphoneRepository().findAll();
         result.sort(new GadgetPriceComparator());
         ;
         return JsonUtil.writeListToJson(result);
@@ -133,8 +152,9 @@ public class SmartphoneController {
 
     @RequestMapping("/getAll")
     @ResponseBody
+    @Operation(summary = "Возвращает все смартфоны")
     String gets() {
-        return JsonUtil.writeListToJson(smartphoneRepository.findAll());
+        return JsonUtil.writeListToJson(smartphoneService.getSmartphoneRepository().findAll());
     }
 
 
